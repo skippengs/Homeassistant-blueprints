@@ -8,7 +8,7 @@ blueprint:
   input:
     motion_sensor:
       name: Motion sensor
-      description: The sensor wich triggers the snapshot creation
+      description: The sensor which triggers the snapshot creation. For reolink doorbell search for motion/person/visitor
       selector:
           entity:
             domain: binary_sensor
