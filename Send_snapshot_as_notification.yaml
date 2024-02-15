@@ -49,10 +49,10 @@ blueprint:
       description: Notification channel name, allows you to set seperate notification sounds per entry (Android only)
       default: ""
 
-    action_1_title:
-      name: Name for first button
-      description: Name of the first button
-      default: ""
+    #action_1_title:
+    #  name: Name for first button
+    #  description: Name of the first button
+    #  default: ""
       
     delay:
       name: Delay (Optional)
