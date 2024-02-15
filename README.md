@@ -1,7 +1,7 @@
 # Homeassistant-blueprints
 Blueprints for home assistant
 
-Import the bleprints into home assistant to use them.
+Import the blueprints into home assistant to use them.
 
 ## Todo's for:
 
