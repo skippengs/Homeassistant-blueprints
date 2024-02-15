@@ -43,6 +43,10 @@ blueprint:
       name: Notification message (Optional)
       description: 'Default: "{{ motion_sensor_name }} detected movement!"'
       default: "{{ motion_sensor_name }} detected movement!"
+    notification_channel:
+      name: Notification channel name, allows you to set seperate notifcation sounds per entry (Android only)
+      description: Notification channel name
+      default: ""
       
     delay:
       name: Delay (Optional)
@@ -69,6 +73,7 @@ variables:
   is_ios: !input is_ios
   notification_title: !input notification_title
   notification_message: !input notification_message
+  notification_channel: !input notification_channel
   delay: !input delay
   snapshot_create_file_path: "/config/www/tmp/snapshot_{{ states[camera].object_id }}.jpg"
   snapshot_access_file_path: "{{ snapshot_create_file_path | replace('/config/www','/local') }}"
@@ -87,6 +92,6 @@ action:
     title: "{{ notification_title }}"
     message: "{{ notification_message }}"
     data: >
-      {% set android_data = {"channel": "voordeur", "image": "%s"} | format(snapshot_access_file_path) %}
+      {% set android_data = {"channel": notification_channel, "image": "%s"} | format(snapshot_access_file_path) %}
       {% set ios_data = {"attachment": {"url": "%s", "content_type": "JPEG"}} | format(snapshot_access_file_path) %}
       {{ ios_data if is_ios else android_data }}
