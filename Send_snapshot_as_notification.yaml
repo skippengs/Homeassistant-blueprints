@@ -44,8 +44,8 @@ blueprint:
       description: 'Default: "{{ motion_sensor_name }} detected movement!"'
       default: "{{ motion_sensor_name }} detected movement!"
     notification_channel:
-      name: Notification channel name, allows you to set seperate notifcation sounds per entry (Android only)
-      description: Notification channel name
+      name: Notification channel name
+      description: Notification channel name, allows you to set seperate notifcation sounds per entry (Android only)
       default: ""
       
     delay:
