@@ -166,7 +166,7 @@ action:
           {% for title in titles %}
             {% if title|length %}
               {% set uri = uris[loop.index - 1] %}
-              {% set action_name = "action_" + loop.index %}
+              {% set action_name = "action" + loop.index|string %}
               {% set action = {
                 "action": "URI" if uri|length else action_name,
                 "title": title,
@@ -177,3 +177,16 @@ action:
             {% endif %}
           {% endfor %}
           {{ actions.data }}
+# Wait for the user to select an action
+  - wait_for_trigger:
+      platform: event
+      event_type: mobile_app_notification_action
+
+  # Do the action that the user selected
+  - choose:
+    - conditions: "{{ wait.trigger.event.data.action == 'action1' }}"
+      sequence: !input action_1
+    - conditions: "{{ wait.trigger.event.data.action == 'action2' }}"
+      sequence: !input action_2
+    - conditions: "{{ wait.trigger.event.data.action == 'action3' }}"
+      sequence: !input action_3
