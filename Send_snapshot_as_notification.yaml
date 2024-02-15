@@ -43,10 +43,64 @@ blueprint:
       name: Notification message (Optional)
       description: 'Default: "{{ motion_sensor_name }} detected movement!"'
       default: "{{ motion_sensor_name }} detected movement!"
+      
     notification_channel:
       name: Notification channel name
       description: Notification channel name, allows you to set seperate notification sounds per entry (Android only)
       default: ""
+
+# Action 1
+    action_1_title:
+      name: Name for first button
+      description: Name of the first button
+      default: ""
+      
+    action_1_uri:
+      name: URI for first button (Optional)
+      description: Optional URI for the first action
+      default: ""
+
+    action_1:
+      name: Action for first button
+      description: Action to run when the first action is clicked
+      default: []
+      selector:
+        action:
+# Action 2
+    action_2_title:
+      name: Name for second button
+      description: Name of the second button
+      default: ""
+      
+    action_2_uri:
+      name: URI for second button (Optional)
+      description: Optional URI for the second action
+      default: ""
+
+    action_2:
+      name: Action for second button
+      description: Action to run when the second action is clicked
+      default: []
+      selector:
+        action:
+
+# Action 3
+    action_3_title:
+      name: Name for third button
+      description: Name of the third button
+      default: ""
+      
+    action_3_uri:
+      name: URI for third button (Optional)
+      description: Optional URI for the third action
+      default: ""
+
+    action_3:
+      name: Action for third button
+      description: Action to run when the third action is clicked
+      default: []
+      selector:
+        action:
       
     delay:
       name: Delay (Optional)
@@ -77,6 +131,15 @@ variables:
   delay: !input delay
   snapshot_create_file_path: "/config/www/tmp/snapshot_{{ states[camera].object_id }}.jpg"
   snapshot_access_file_path: "{{ snapshot_create_file_path | replace('/config/www','/local') }}"
+  action_1_title: !input action_1_title
+  action_1_uri: !input action_1_uri
+  action_1: !input action_1
+  action_2_title: !input action_2_title
+  action_2_uri: !input action_2_uri
+  action_2: !input action_2
+  action_3_title: !input action_3_title
+  action_3_uri: !input action_3_uri
+  action_3: !input action_3
 
 action:
   - delay: "{{ delay }}"
@@ -95,3 +158,22 @@ action:
       {% set android_data = {"channel": notification_channel, "image": "%s"} | format(snapshot_access_file_path) %}
       {% set ios_data = {"attachment": {"url": "%s", "content_type": "JPEG"}} | format(snapshot_access_file_path) %}
       {{ ios_data if is_ios else android_data }}
+      actions: >
+          {% set titles = [action_1_title, action_2_title, action_3_title] %}
+          {% set uris = [action_1_uri, action_2_uri, action_3_uri] %}
+          {% set actions = namespace(data = []) %}
+  
+          {% for title in titles %}
+            {% if title|length %}
+              {% set uri = uris[loop.index - 1] %}
+              {% set action_name = "action" + loop.index|string %}
+              {% set action = {
+                "action": "URI" if uri|length else action_name,
+                "title": title,
+                "uri": uri 
+                }
+              %}
+              {% set actions.data = actions.data + [action] %}
+            {% endif %}
+          {% endfor %}
+          {{ actions.data }}
