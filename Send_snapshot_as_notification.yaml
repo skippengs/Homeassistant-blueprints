@@ -34,8 +34,6 @@ blueprint:
         boolean:
       default: false
 
-    icon:
-
     notification_title:
       name: Notification title (Optional)
       description: 'Default: "Motion detected!"'
