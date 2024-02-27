@@ -39,7 +39,7 @@ blueprint:
       
     notification_channel:
       name: Notification channel name
-      description: Notification channel name, allows you to set seperate notification sounds per entry (Android only)
+      description: Notification channel name, allows you to set seperate notification sounds per entry (Android only, only works one time per notification channel, so choose wisely)
       default: ""
 
     #action_1_title:
@@ -84,7 +84,8 @@ action:
     data:
       filename: "{{ snapshot_create_file_path }}"
 
-  - device_id: !input notify_device
+  - device_id: notify.ALL_DEVICES
+    #device_id: !input notify_device
     domain: mobile_app
     type: notify
     title: "{{ notification_title }}"
