@@ -94,4 +94,4 @@ action:
       clickAction: "app://com.mcu.reolink"
       ttl: 0
       priority: "high"
-      image: "%s"
+      image: format(snapshot_access_file_path)
