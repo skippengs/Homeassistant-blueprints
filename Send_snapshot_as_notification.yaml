@@ -89,5 +89,9 @@ action:
     type: notify
     title: "{{ notification_title }}"
     message: "{{ notification_message }}"
-    data: >
-      {"channel": notification_channel, "clickAction": "app://com.mcu.reolink", "ttl": 0, "priority": "high", "image": "%s"}
+    data:
+      channel: "{{ notification_channel }}"
+      clickAction: "app://com.mcu.reolink"
+      ttl: 0
+      priority: "high"
+      image: "%s"
