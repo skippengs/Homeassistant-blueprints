@@ -89,9 +89,6 @@ action:
     type: notify
     title: "{{ notification_title }}"
     message: "{{ notification_message }}"
-    data:
-      channel: "{{ notification_channel }}"
-      clickAction: "app://com.mcu.reolink"
-      ttl: 0
-      priority: "high"
-      image: "%s" | format(snapshot_access_file_path)
+    data: >
+      {% set android_data = {"channel": notification_channel, "clickAction": "app://com.mcu.reolink", "ttl": 0, "priority": "high", "image": "%s"} | format(snapshot_access_file_path) %}
+      {{ android_data }}
