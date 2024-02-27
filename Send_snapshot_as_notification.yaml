@@ -84,8 +84,8 @@ action:
     data:
       filename: "{{ snapshot_create_file_path }}"
 
-  - device_id: notify.ALL_DEVICES
-    #device_id: !input notify_device
+  - device_id: !input notify_device
+    #device_id: notify.ALL_DEVICES
     domain: mobile_app
     type: notify
     title: "{{ notification_title }}"
