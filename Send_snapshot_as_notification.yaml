@@ -26,6 +26,7 @@ blueprint:
       selector:
         device:
           integration: mobile_app
+          multiple: true
 
     notification_title:
       name: Notification title (Optional)
